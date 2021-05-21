@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ContactList.module.css";
 import { connect } from "react-redux";
-import operations from "../redux/operations.js";
+import operations from "../redux/operations";
+import { getVisibleContacts } from "../redux/selectors";
 
 const ContactList = ({ contacts, isLoading, deleteContact }) => {
   return (
@@ -35,12 +36,7 @@ ContactList.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const getFilteredContacts = () => {
-    const normalizedFilter = state.filter.toLowerCase();
-    return state.contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
-  };
-
-  return { contacts: getFilteredContacts(), isLoading: state.isRequested };
+  return { contacts: getVisibleContacts(state), isLoading: state.isRequested };
 };
 
 const mapDispatchToProps = dispatch => ({

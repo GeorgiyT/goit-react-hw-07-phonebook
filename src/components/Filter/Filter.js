@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./Filter.module.css";
 import { connect } from "react-redux";
 import { addFilter } from "../redux/action";
+import { getFilter } from "../redux/selectors";
 
 const Filter = ({ value, addFilter }) => {
   return (
@@ -27,7 +28,7 @@ Filter.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { value: state.filter };
+  return { value: getFilter(state) };
 };
 
 const mapDispatchToProps = {
